@@ -21,26 +21,30 @@ end
 
 # THIS IS BROKEN!!!! RESUME WORK HERE
 def apply_coupons(cart, coupons)
-  outH = cart
-
-  cart.map do |cartitem, cartdetailsh|
-    coupons.map.with_index do |coupon, index|
-      if coupon.has_value?(cartitem) == true
-
-        outH[cartitem][:count] = outH[cartitem][:count] - coupon[:num]
-        newKey = coupon[:item] + " W/COUPON"
-        outH[newKey][:price] = coupon[:cost]
-        outH[newKey] = {:clearance => outH[cartitem][:clearance]}
-        outH[newKey] = {:count => 1}
-        binding.pry
-        outH.delete_if do |key, value|
-          outH[cartitem][:count] == 0
+  outH = {}
+  if coupons != []
+    cart.map do |cartitem, cartdetailsh|
+      coupons.map.with_index do |coupon, index|
+        if coupon.has_value?(cartitem) == true
+          cart[cartitem][:count] = cart[cartitem][:count] - coupon[:num]
+          newKey = coupon[:item] + " W/COUPON"
+          if outH.has_key?(newKey) == false
+            outH[newKey] = {:price => coupon[:cost],
+              :clearance => cart[cartitem][:clearance],
+              :count => 1}
+              outH[cartitem] = cartdetailsh
+          else
+            outH[newKey][:count] += 1
+          end
+        else
+          outH[cartitem] = cartdetailsh
         end
-
       end
     end
+  else
+    outH = cart
   end
-binding.pry
+  outH
 end
 
 def apply_clearance(cart)
