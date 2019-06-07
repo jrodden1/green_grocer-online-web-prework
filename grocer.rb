@@ -45,7 +45,7 @@ def apply_coupons(cart, coupons)
             end
             binding.pry
           elsif enoughItems == 0
-            binding.pry 
+            binding.pry
             cart[cartitem][:count] = cart[cartitem][:count] - coupon[:num]
             newKey = coupon[:item] + " W/COUPON"
             if outH.has_key?(newKey) == false
