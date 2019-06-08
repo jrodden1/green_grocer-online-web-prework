@@ -86,7 +86,7 @@ def apply_clearance(cart)
       end
     end
   end
-  binding.pry 
+  binding.pry
   outH
 end
 
