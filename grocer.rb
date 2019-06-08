@@ -43,7 +43,7 @@ def apply_coupons(cart, coupons)
             else
               outH[newKey][:count] += 1
             end
-            
+
           elsif enoughItems == 0
             cart[cartitem][:count] = cart[cartitem][:count] - coupon[:num]
             newKey = coupon[:item] + " W/COUPON"
