@@ -80,7 +80,7 @@ def apply_clearance(cart)
       cartdetailsh[:price] = clearPrice.round(2)
       outH[cartitem][:price] = cartdetailsh[:price]
     else
-      outH[cartitem] = cartdetailsh 
+      outH[cartitem] = cartdetailsh
     end
   end
   outH
