@@ -87,7 +87,7 @@ def apply_clearance(cart)
       else
         outH[cartitem] = cartdetailsh
       end
-    end
+    #end
   end
   outH
 end
