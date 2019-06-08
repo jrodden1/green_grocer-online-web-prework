@@ -1,5 +1,6 @@
 require 'pry'
 def consolidate_cart(cart)
+  #binding.pry
   conHash = {}
   cart.each do |itemHash|
     itemHash.each do |item, detailsh|
@@ -21,7 +22,6 @@ def consolidate_cart(cart)
     end
   end
   conHash
-  binding.pry 
 end
 
 def apply_coupons(cart, coupons)
@@ -43,6 +43,7 @@ def apply_coupons(cart, coupons)
             else
               outH[newKey][:count] += 1
             end
+
           elsif enoughItems == 0
             cart[cartitem][:count] = cart[cartitem][:count] - coupon[:num]
             newKey = coupon[:item] + " W/COUPON"
@@ -54,7 +55,6 @@ def apply_coupons(cart, coupons)
               outH[newKey][:count] += 1
             end
             outH[cartitem] = cartdetailsh
-            #cart.delete(cartitem)
           else
             outH[cartitem] = cartdetailsh
           end
@@ -73,14 +73,15 @@ def apply_clearance(cart)
   outH = {}
 
   cart.map do |cartitem, cartdetailsh|
-      outH = {cartitem => cartdetailsh}
-      if cartdetailsh[:clearance] == true
-        clearPrice = cartdetailsh[:price] * 0.8
-        cartdetailsh[:price] = clearPrice.round(2)
-        outH[cartitem][:price] = cartdetailsh[:price]
-      end
+    outH[cartitem] = {}
+    cartdetailsh.each do |key, value|
+      outH[cartitem][key] = value
+    end
+    if outH[cartitem][:clearance] == true
+      clearPrice = outH[cartitem][:price] * 0.8
+      outH[cartitem][:price] = clearPrice.round(2)
+    end
   end
-
   outH
 end
 
@@ -89,7 +90,7 @@ def checkout(cart, coupons)
   consolidated = consolidate_cart(cart)
   coupons_applied = apply_coupons(consolidated, coupons)
   clearance_applied = apply_clearance(coupons_applied)
-  binding.pry
+  #binding.pry
 
   calcArr = []
   clearance_applied.each do |item, itemh|
