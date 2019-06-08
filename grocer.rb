@@ -74,13 +74,16 @@ def apply_clearance(cart)
   outH = {}
 
   cart.map do |cartitem, cartdetailsh|
-    outH = {cartitem => cartdetailsh}
-    if cartdetailsh[:clearance] == true
-      clearPrice = cartdetailsh[:price] * 0.8
-      cartdetailsh[:price] = clearPrice.round(2)
-      outH[cartitem][:price] = cartdetailsh[:price]
-    else
-      outH[cartitem] = cartdetailsh
+    outH[cartitem] = {}
+    binding.pry 
+    cartdetailsh.each do |key, value|
+      if cartdetailsh[:clearance] == true
+        clearPrice = cartdetailsh[:price] * 0.8
+        cartdetailsh[:price] = clearPrice.round(2)
+        outH[cartitem][:price] = cartdetailsh[:price]
+      else
+        outH[cartitem] = cartdetailsh
+      end
     end
   end
   outH
