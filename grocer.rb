@@ -43,9 +43,8 @@ def apply_coupons(cart, coupons)
             else
               outH[newKey][:count] += 1
             end
-            binding.pry
+            
           elsif enoughItems == 0
-            binding.pry
             cart[cartitem][:count] = cart[cartitem][:count] - coupon[:num]
             newKey = coupon[:item] + " W/COUPON"
             if outH.has_key?(newKey) == false
@@ -56,7 +55,6 @@ def apply_coupons(cart, coupons)
               outH[newKey][:count] += 1
             end
             outH[cartitem] = cartdetailsh
-            binding.pry 
             #cart.delete(cartitem)
           else
             outH[cartitem] = cartdetailsh
@@ -81,6 +79,8 @@ def apply_clearance(cart)
         clearPrice = cartdetailsh[:price] * 0.8
         cartdetailsh[:price] = clearPrice.round(2)
         outH[cartitem][:price] = cartdetailsh[:price]
+      else
+        outH[cartitem] = cartdetailsh 
       end
   end
 
