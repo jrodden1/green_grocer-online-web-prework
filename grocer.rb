@@ -55,7 +55,6 @@ def apply_coupons(cart, coupons)
               outH[newKey][:count] += 1
             end
             outH[cartitem] = cartdetailsh
-            #cart.delete(cartitem)
           else
             outH[cartitem] = cartdetailsh
           end
@@ -78,13 +77,11 @@ def apply_clearance(cart)
     cartdetailsh.each do |key, value|
       outH[cartitem][key] = value
     end
-    binding.pry
     if outH[cartitem][:clearance] == true
       clearPrice = outH[cartitem][:price] * 0.8
       outH[cartitem][:price] = clearPrice.round(2)
     end
   end
-  binding.pry
   outH
 end
 
