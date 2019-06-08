@@ -77,7 +77,7 @@ def apply_clearance(cart)
     outH[cartitem] = {}
     binding.pry
     cartdetailsh.each do |key, value|
-      outH[key] = value
+      outH[cartitem][key] = value
     end
     binding.pry
     outH.each do |outkey, outvalue|
